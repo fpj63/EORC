@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Église Orthodoxe de Clermont-Ferrand</title>
+    <!-- Chargement des icônes Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #334155;
+            --accent-color: #d4af37;
+            --sidebar-bg: #5a768e; 
+            --sidebar-text: #ffffff;
+            --sidebar-active-bg: rgba(255, 255, 255, 0.25);
+            --bg-overlay: #ffffff;
+            --sidebar-width: 280px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            height: 100vh;
+            display: flex;
+            background-color: #f8fafc;
+            overflow: hidden;
+        }
+
+        nav {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 0 20px;
+            box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding: 0 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .logo-area h1 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffda6c;
+            line-height: 1.4;
+            font-weight: 800;
+        }
+
+        .nav-tabs {
+            list-style: none;
+            flex-grow: 1;
+            padding: 0 12px;
+        }
+
+        .nav-tabs li {
+            padding: 12px 16px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--sidebar-text);
+        }
+
+        .nav-tabs li:hover {
+            background: var(--sidebar-active-bg);
+        }
+
+        .nav-tabs li.active {
+            background: #ffffff;
+            color: #475569;
+            font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-selector {
+            padding: 20px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .lang-btn.active {
+            background: #ffda6c;
+            border-color: #ffda6c;
+            color: #334155;
+        }
+
+        main {
+            flex-grow: 1;
+            overflow-y: auto;
+            background: white;
+            position: relative;
+        }
+
+        .hero-banner {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            background-color: #cbd5e1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-banner img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+        }
+
+        .hero-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .link-list {
+            list-style: none;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .link-item:hover {
+            background: #f8fafc;
+        }
+
+        .link-icon {
+            width: 40px;
+            height: 40px;
+            background: #f1f5f9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5a768e;
+        }
+
+        .saints-card {
+            background: #fffdf5;
+            border-left: 4px solid #d4af37;
+        }
+
+        .saints-card h3 {
+            color: #b45309;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .saints-date {
+            font-size: 0.85rem;
+            color: #92400e;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: capitalize;
+            border-bottom: 1px solid #fef3c7;
+            padding-bottom: 5px;
+        }
+
+        .saint-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #fef3c7;
+            font-size: 0.95rem;
+            color: #451a03;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .saint-item:last-child {
+            border-bottom: none;
+        }
+
+        .iframe-wrapper {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            height: 450px;
+            background: #f1f5f9;
+        }
+
+        .presentation-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 1024px) {
+            body { flex-direction: column; height: auto; overflow-y: auto; }
+            nav { width: 100%; height: auto; padding: 10px 0; position: sticky; top: 0; }
+            .nav-tabs { display: flex; overflow-x: auto; padding: 5px; }
+            .nav-tabs li { white-space: nowrap; margin-bottom: 0; }
+            .hero-banner { height: 200px; }
+            .hero-content h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <h1>Paroisse Orthodoxe<br>Clermont-Ferrand</h1>
+        </div>
+        
+        <ul class="nav-tabs" id="mainMenu"></ul>
+
+        <div class="lang-selector">
+            <button class="lang-btn active" id="btn-fr" onclick="changeLang('fr')">FR</button>
+            <button class="lang-btn" id="btn-ro" onclick="changeLang('ro')">RO</button>
+            <button class="lang-btn" id="btn-ka" onclick="changeLang('ka')">GE</button>
+        </div>
+    </nav>
+
+    <main id="contentArea">
+        <!-- Contenu dynamique -->
+    </main>
+
+    <script>
+        const translations = {
+            fr: {
+                home: "Accueil",
+                presentation: "Présentation",
+                calendar: "Calendrier",
+                teaching: "Enseignement",
+                spiritual: "Vie Spirituelle",
+                galleries: "Galeries",
+                links: "Liens",
+                contact: "Contact",
+                church_title: "Paroisse Saint Nicolas",
+                welcome: "Communauté orthodoxe de Clermont-Ferrand.",
+                saints_today: "Saints et Fêtes du jour",
+                loading: "Chargement des saints...",
+                map_title: "Nous situer"
+            },
+            ro: {
+                home: "Acasă",
+                presentation: "Prezentare",
+                calendar: "Calendar",
+                teaching: "Învățătură",
+                spiritual: "Viață Spirituală",
+                galleries: "Galerii",
+                links: "Link-uri",
+                contact: "Contact",
+                church_title: "Parohia Sfântul Nicolae",
+                welcome: "Bine ați venit în comunitatea noastră.",
+                saints_today: "Sfinții zilei",
+                loading: "Se încarcă...",
+                map_title: "Localizare"
+            },
+            ka: {
+                home: "მთავარი",
+                presentation: "პრეზენტაცია",
+                calendar: "კალენდარი",
+                teaching: "სწავლება",
+                spiritual: "სულიერი ცხოვრება",
+                galleries: "გალერეა",
+                links: "ბმულები",
+                contact: "კონტაქტი",
+                church_title: "წმინდა ნიკოლოზის მრევლი",
+                welcome: "კეთილი იყოს თქვენი მობრძანება.",
+                saints_today: "დღის წმინდანები",
+                loading: "იტვირთება...",
+                map_title: "მდებარეობა"
+            }
+        };
+
+        const icons = {
+            home: 'home', presentation: 'presentation', calendar: 'calendar', teaching: 'book-open',
+            spiritual: 'heart', galleries: 'image', links: 'external-link', contact: 'mail'
+        };
+
+        let currentLang = 'fr';
+        let currentTab = 'home';
+        const menuItems = ['home', 'presentation', 'calendar', 'teaching', 'spiritual', 'galleries', 'links', 'contact'];
+
+        async function fetchSaints() {
+            const listElement = document.getElementById('saints-list');
+            const dateElement = document.getElementById('current-saints-date');
+            if (!listElement) return;
+
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = today.toLocaleDateString(currentLang === 'ka' ? 'ka-GE' : (currentLang === 'ro' ? 'ro-RO' : 'fr-FR'), options);
+            
+            if (dateElement) dateElement.innerText = dateStr;
+
+            try {
+                const y = today.getFullYear();
+                const m = today.getMonth() + 1;
+                const d = today.getDate();
+                
+                // Tentative d'appel à l'API
+                const response = await fetch(`https://orthocal.info/api/gregorian/${y}/${m}/${d}/`, {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                if (!response.ok) throw new Error('Erreur API');
+                
+                const data = await response.json();
+                let html = '';
+                
+                if (data && data.commemorations && data.commemorations.length > 0) {
+                    data.commemorations.slice(0, 5).forEach(c => {
+                        html += `<li class="saint-item"><i data-lucide="sun" style="width:14px; color:#d4af37; flex-shrink:0; margin-top:4px"></i><span>${c.title}</span></li>`;
+                    });
+                } else {
+                    throw new Error('Pas de données');
+                }
+                listElement.innerHTML = html;
+            } catch (e) {
+                // Fallback en cas d'erreur de l'API (Saints génériques ou message d'accueil)
+                listElement.innerHTML = `
+                    <li class="saint-item"><i data-lucide="info" style="width:14px; color:#d4af37; flex-shrink:0; margin-top:4px"></i><span>Saint Nicolas, priez pour nous !</span></li>
+                    <li class="saint-item"><i data-lucide="calendar" style="width:14px; color:#d4af37; flex-shrink:0; margin-top:4px"></i><span>Consultez l'onglet Calendrier pour le détail des fêtes.</span></li>
+                `;
+            }
+            lucide.createIcons();
+        }
+
+        function renderMenu() {
+            const menu = document.getElementById('mainMenu');
+            if(!menu) return;
+            menu.innerHTML = '';
+            menuItems.forEach(item => {
+                const li = document.createElement('li');
+                li.className = currentTab === item ? 'active' : '';
+                li.innerHTML = `<i data-lucide="${icons[item] || 'circle'}"></i> ${translations[currentLang]?.[item] || item}`;
+                li.onclick = () => switchTab(item);
+                menu.appendChild(li);
+            });
+            lucide.createIcons();
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            renderMenu();
+            renderContent();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function changeLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const btnId = `btn-${lang}`;
+                btn.classList.toggle('active', btn.id === btnId);
+            });
+            renderMenu();
+            renderContent();
+        }
+
+        function renderContent() {
+            const container = document.getElementById('contentArea');
+            const t = translations[currentLang] || translations['fr'];
+            let html = '';
+
+            if (currentTab === 'home') {
+                html += `
+                    <section class="hero-banner">
+                        <img src="https://lh3.googleusercontent.com/d/1swgD_t3zpHKiEwULsTT8vn_M_F1OXkzH" alt="Paroisse Saint Nicolas">
+                        <div class="hero-content">
+                            <h2>${t.church_title}</h2>
+                            <p>${t.welcome}</p>
+                        </div>
+                    </section>
+                `;
+            }
+
+            html += `<div class="container">`;
+
+            if (currentTab === 'home') {
+                html += `
+                    <div class="info-grid">
+                        <div class="card">
+                            <h3>Bienvenue</h3>
+                            <p>La paroisse est un lieu de rassemblement pour la communauté orthodoxe de Clermont-Ferrand et ses environs.</p>
+                            <p style="margin-top:10px">Nos célébrations reflètent la tradition byzantine, avec des offices en plusieurs langues pour accueillir tout le monde.</p>
+                        </div>
+                        <div class="card saints-card">
+                            <h3><i data-lucide="sparkles"></i> ${t.saints_today}</h3>
+                            <div id="current-saints-date" class="saints-date"></div>
+                            <ul id="saints-list" style="list-style:none"><li>${t.loading}</li></ul>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'presentation') {
+                html += `
+                    <h2>${t.presentation}</h2>
+                    <div class="card" style="padding: 10px;">
+                        <div class="iframe-wrapper">
+                            <iframe 
+                                src="https://docs.google.com/presentation/d/1K48KIBt_o8vZUa6LFGsXK9K3kNR8_LGaFHcCti-N4xM/embed?start=false&loop=false&delayms=3000" 
+                                class="presentation-frame" 
+                                allowfullscreen="true">
+                            </iframe>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'calendar') {
+                html += `
+                    <h2>${t.calendar}</h2>
+                    <div class="card">
+                        <div class="iframe-wrapper">
+                            <iframe src="https://calendar.google.com/calendar/embed?src=clermont%40mitropolia.eu&ctz=Europe%2FParis" style="width:100%; height:100%; border:0;"></iframe>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'links') {
+                html += `
+                    <h2>${t.links}</h2>
+                    <div class="card">
+                        <div class="link-list">
+                            <a href="https://www.mitropolia.eu" target="_blank" class="link-item">
+                                <div class="link-icon"><i data-lucide="globe"></i></div>
+                                <div>
+                                    <strong>Métropole Orthodoxe Roumaine</strong>
+                                    <p style="font-size:0.85rem; color:#64748b">Europe Occidentale et Méridionale</p>
+                                </div>
+                            </a>
+                            <a href="https://patriarhia.ro" target="_blank" class="link-item">
+                                <div class="link-icon"><i data-lucide="landmark"></i></div>
+                                <div>
+                                    <strong>Patriarcat de Roumanie</strong>
+                                    <p style="font-size:0.85rem; color:#64748b">Site officiel du Patriarcat</p>
+                                </div>
+                            </a>
+                            <a href="https://orthodoxie.com" target="_blank" class="link-item">
+                                <div class="link-icon"><i data-lucide="news"></i></div>
+                                <div>
+                                    <strong>Orthodoxie.com</strong>
+                                    <p style="font-size:0.85rem; color:#64748b">L'information orthodoxe en français</p>
+                                </div>
+                            </a>
+                            <a href="http://www.radio-trinitas.ro" target="_blank" class="link-item">
+                                <div class="link-icon"><i data-lucide="radio"></i></div>
+                                <div>
+                                    <strong>Radio Trinitas</strong>
+                                    <p style="font-size:0.85rem; color:#64748b">Radio du Patriarcat de Roumanie</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'contact') {
+                html += `
+                    <h2>${t.contact}</h2>
+                    <div class="info-grid">
+                        <div class="card">
+                            <p><strong>📍 Adresse :</strong> 43 rue Sainte Claire, 63000 Clermont-Ferrand</p>
+                            <p style="margin-top:10px"><strong>📞 Téléphone :</strong> 04 73 37 01 55</p>
+                            <p style="margin-top:10px"><strong>✉️ Email :</strong> clermont@mitropolia.eu</p>
+                        </div>
+                        <div class="card">
+                            <h3>${t.map_title}</h3>
+                            <div class="iframe-wrapper" style="height:280px">
+                                <iframe src="https://maps.google.com/maps?q=43%20Rue%20Sainte-Claire%2C%2063000%20Clermont-Ferrand&t=&z=15&ie=UTF8&iwloc=&output=embed" style="width:100%; height:100%; border:0;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `<h2>${t[currentTab]}</h2><div class="card"><p>Cette section est en cours de mise à jour.</p></div>`;
+            }
+
+            html += `</div>`;
+            container.innerHTML = html;
+            lucide.createIcons();
+            if (currentTab === 'home') fetchSaints();
+        }
+
+        window.onload = () => {
+            renderMenu();
+            renderContent();
+        };
+    </script>
+</body>
+</html>
